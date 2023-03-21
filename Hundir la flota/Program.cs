@@ -17,7 +17,7 @@ namespace Hundir_la_flota
         static int MenuPrincipal(){
             //Imprimo por pantalla las diferentes opciones
             Console.WriteLine("MENÚ PRINCIPAL");
-            Console.WriteLine("1. Un Jugadr");
+            Console.WriteLine("1. Un Jugad5656r");
             Console.WriteLine("2. Dos Jugadores");
             Console.WriteLine("3. Cargar Partida");
             Console.WriteLine("4. Ranking");
