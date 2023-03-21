@@ -85,6 +85,7 @@ namespace Hundir_la_flota
 
         public void PosicionarBarco(Barco barco)
         {
+
             string texto1 = "Introduce la fila en la que se encuentra tu barco";
             Program.Centrar(texto1);
             int posicioni = Convert.ToInt32(Console.ReadLine()) - 1;
@@ -130,6 +131,28 @@ namespace Hundir_la_flota
                         }
                     }
                     MostrarTablero();
+                    break;
+                case 2:
+                    for (int i = 0; i < numeroEspacios; i++)
+                    {
+                        if (Matriz[posicioni - i, posicionj] == " ")
+                        {
+                            Matriz[posicioni - i, posicionj] = "U";
+                        }
+                        else if (Matriz[posicioni - i, posicionj] == "X")
+                        {
+                            string texto = "Tu barco pasa por una tierra\n";
+                            texto = Program.Centrar2(texto);
+                            Console.WriteLine(texto);
+                            texto = "Introduce de nuevo las cordenasas y asegutate de no pasar por una tierra";
+                            texto = Program.Centrar2(texto);
+                            Console.WriteLine(texto);
+                            posicioni = Convert.ToInt32(Console.ReadLine());
+                            posicionj = Convert.ToInt32(Console.ReadLine());
+                            i--;
+
+                        }
+                    }
                     break;
             }
         }

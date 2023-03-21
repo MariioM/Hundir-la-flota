@@ -31,6 +31,7 @@ namespace Hundir_la_flota
             Console.WriteLine(texto1);
             int comando = Convert.ToInt32(Console.ReadLine());
             Tablero tablero = new Tablero();
+            
             switch (comando)
             {
                 case 1:
