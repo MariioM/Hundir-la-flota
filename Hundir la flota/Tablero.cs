@@ -85,7 +85,6 @@ namespace Hundir_la_flota
 
                 }
             }
-
             Console.WriteLine("\n");
             for (int i = 0; i < Filas; i++)
             {
