@@ -71,15 +71,28 @@ namespace Hundir_la_flota
         {
             string caracter = " ";
             caracter = string.Concat(Enumerable.Repeat(caracter, 10));
+            Console.Write(caracter);
+            for (int i = 1; i <= Filas; i++) 
+            {
+                if (i <= 10)
+                {
+                    Console.Write("  {0} ", i);
+                }
+                else
+                {
+                    Console.Write(" {0} ", i);
+                }
+            }
+            Console.WriteLine("\n");
             for (int i = 0; i < Filas; i++)
             {
 
                 for (int j = 0; j < Columnas; j++)
                 {
                     if (j == 0) { Console.Write(caracter); }
-                    Console.Write("|{0}", Matriz[i, j]);
+                    Console.Write("| {0} ", Matriz[i, j]);
                 }
-                Console.WriteLine("|");
+                Console.WriteLine("| \na");
             }
         }
 
