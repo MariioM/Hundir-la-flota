@@ -10,10 +10,11 @@ namespace Hundir_la_flota
 {
     internal class Tablero
     {
+        //Atributos
         public string[,] Matriz { get; set; }
         public int Filas { get; set; }
         public int Columnas { get; set; }
-
+        //Constructores
         public Tablero()
         {
             Filas = 12;
@@ -21,7 +22,7 @@ namespace Hundir_la_flota
             Matriz = new string[Filas, Columnas];
         }
 
-
+        //Métodos
         public Tablero(int filas, int columnas)
         {
             Filas = filas;
@@ -63,10 +64,10 @@ namespace Hundir_la_flota
                     Matriz[numeroAleatorio1, numeroAleatorio2] = "X";
                 }
             }
-            Mostrar();
+            MostrarTablero();
         }
 
-        public void Mostrar()
+        public void MostrarTablero()
         {
             string caracter = " ";
             caracter = string.Concat(Enumerable.Repeat(caracter, 10));
@@ -128,7 +129,7 @@ namespace Hundir_la_flota
 
                         }
                     }
-                    Mostrar();
+                    MostrarTablero();
                     break;
             }
         }
