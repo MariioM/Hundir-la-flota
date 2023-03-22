@@ -49,10 +49,12 @@ namespace Hundir_la_flota
         }
         public void SetTierras()
         {
+            //Creamos un objeto que nos permita sacar un número aleatorio
             var seed = Environment.TickCount;
             Random rnd = new Random(seed);
             for (int i = 0; i < 14; i++)
             {
+                //Declaramos dos variables que contendrán los números aleatorios que corresponderán a las coordenadas de las tierras
                 int numeroAleatorio1 = rnd.Next(0, 12);
                 int numeroAleatorio2 = rnd.Next(0, 12);
                 if (Matriz[numeroAleatorio1, numeroAleatorio2] == "X")
@@ -71,8 +73,10 @@ namespace Hundir_la_flota
         {
             string caracter = " ";
             char letraFila = 'a';
+            //Hacemos que la variable "caracter" se concatene consigo misma 10 veces para centrar el texto.
             caracter = string.Concat(Enumerable.Repeat(caracter, 10));
             Console.Write(caracter + "  ");
+            //Enumeramos las columnas del tablero
             for (int i = 1; i <= Filas; i++)
             {
                 if (i <= 10)
@@ -86,8 +90,10 @@ namespace Hundir_la_flota
                 }
             }
             Console.WriteLine("\n");
+            //Creamos el tablero con dos bucles anidados
             for (int i = 0; i < Filas; i++)
             {
+                //Enumeramos las columnas con letras
                 Console.Write(caracter);
                 Console.Write("{0}  ", letraFila);
                 letraFila++;

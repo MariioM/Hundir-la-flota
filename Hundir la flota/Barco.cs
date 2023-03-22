@@ -8,12 +8,11 @@ namespace Hundir_la_flota
 {
     internal class Barco
     {
+        //Atributos
         public int NumeroEspacios { get; set; }
         public Espacios[] Espacios { get; set; }
         public bool Hundido { get; set; }
         public TipoBarco Tipo { get; set; }
-
-
         public enum TipoBarco
         {
             Patrullero,
@@ -22,8 +21,7 @@ namespace Hundir_la_flota
             Portaaviones
         }
 
-
-
+        //Constructores
         public Barco()
         {
             NumeroEspacios = 3;
@@ -34,6 +32,7 @@ namespace Hundir_la_flota
             NumeroEspacios = numeroEspacios;
             Espacios = espacios;
         }
+        //Métodos
         public string[,] PosicionarBarco(string[,] matriz)
         {
             bool bucle = true;
