@@ -13,6 +13,7 @@ namespace Hundir_la_flota
         public bool Hundido { get; set; }
         public TipoBarco Tipo { get; set; }
 
+
         public enum TipoBarco
         {
             Patrullero,

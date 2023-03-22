@@ -70,9 +70,10 @@ namespace Hundir_la_flota
         public void MostrarTablero()
         {
             string caracter = " ";
+            char letraFila = 'a';
             caracter = string.Concat(Enumerable.Repeat(caracter, 10));
-            Console.Write(caracter);
-            for (int i = 1; i <= Filas; i++) 
+            Console.Write(caracter + "  ");
+            for (int i = 1; i <= Filas; i++)
             {
                 if (i <= 10)
                 {
@@ -81,18 +82,21 @@ namespace Hundir_la_flota
                 else
                 {
                     Console.Write(" {0} ", i);
+
                 }
             }
             Console.WriteLine("\n");
             for (int i = 0; i < Filas; i++)
             {
-
+                Console.Write(caracter);
+                Console.Write("{0}  ", letraFila);
+                letraFila++;
                 for (int j = 0; j < Columnas; j++)
                 {
-                    if (j == 0) { Console.Write(caracter); }
+                    
                     Console.Write("| {0} ", Matriz[i, j]);
                 }
-                Console.WriteLine("| \na");
+                Console.WriteLine("|\n");
             }
         }
 
