@@ -78,6 +78,7 @@ namespace Hundir_la_flota
                 if (i <= 10)
                 {
                     Console.Write("  {0} ", i);
+
                 }
                 else
                 {
