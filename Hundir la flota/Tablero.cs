@@ -11,7 +11,7 @@ namespace Hundir_la_flota
     internal class Tablero
     {
         //Atributos
-        public string[,] Matriz { get; set; }
+        public string[,] TableroJuego { get; set; }
         public int Filas { get; set; }
         public int Columnas { get; set; }
         //Constructores
@@ -19,7 +19,7 @@ namespace Hundir_la_flota
         {
             Filas = 12;
             Columnas = 12;
-            Matriz = new string[Filas, Columnas];
+            TableroJuego = new string[Filas, Columnas];
         }
 
         //Métodos
@@ -27,7 +27,7 @@ namespace Hundir_la_flota
         {
             Filas = filas;
             Columnas = columnas;
-            Matriz = new string[filas, columnas];
+            TableroJuego = new string[filas, columnas];
 
         }
 
@@ -37,12 +37,12 @@ namespace Hundir_la_flota
 
             string caracter = " ";
             caracter = string.Concat(Enumerable.Repeat(caracter, 10));
-            // Inicializa la Matriz con todo 0;
+            // Inicializa la TableroJuego con todo 0;
             for (int i = 0; i < Filas; i++)
             {
                 for (int j = 0; j < Columnas; j++)
                 {
-                    Matriz[i, j] = " ";
+                    TableroJuego[i, j] = " ";
                 }
             }
             SetTierras();
@@ -57,13 +57,13 @@ namespace Hundir_la_flota
                 //Declaramos dos variables que contendrán los números aleatorios que corresponderán a las coordenadas de las tierras
                 int numeroAleatorio1 = rnd.Next(0, 12);
                 int numeroAleatorio2 = rnd.Next(0, 12);
-                if (Matriz[numeroAleatorio1, numeroAleatorio2] == "X")
+                if (TableroJuego[numeroAleatorio1, numeroAleatorio2] == "X")
                 {
                     i--;
                 }
                 else
                 {
-                    Matriz[numeroAleatorio1, numeroAleatorio2] = "X";
+                    TableroJuego[numeroAleatorio1, numeroAleatorio2] = "X";
                 }
             }
             MostrarTablero();
@@ -100,7 +100,7 @@ namespace Hundir_la_flota
                 for (int j = 0; j < Columnas; j++)
                 {
                     
-                    Console.Write("| {0} ", Matriz[i, j]);
+                    Console.Write("| {0} ", TableroJuego[i, j]);
                 }
                 Console.WriteLine("|\n");
             }
@@ -134,11 +134,11 @@ namespace Hundir_la_flota
                 case 1:
                     for (int i = 0; i < numeroEspacios; i++)
                     {
-                        if (Matriz[posicioni - i, posicionj] == " ")
+                        if (TableroJuego[posicioni - i, posicionj] == " ")
                         {
-                            Matriz[posicioni - i, posicionj] = "U";
+                            TableroJuego[posicioni - i, posicionj] = "U";
                         }
-                        else if (Matriz[posicioni - i, posicionj] == "X")
+                        else if (TableroJuego[posicioni - i, posicionj] == "X")
                         {
                             string texto = "Tu barco pasa por una tierra\n";
                             texto = Program.Centrar2(texto);

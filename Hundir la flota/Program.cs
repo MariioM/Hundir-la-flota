@@ -36,7 +36,7 @@ namespace Hundir_la_flota
                 case 1:
                     tablero.Crear();
                     Barco barco = new Barco();
-                    tablero.Matriz = barco.PosicionarBarco(tablero.Matriz);
+                    tablero.TableroJuego = barco.PosicionarBarco(tablero.TableroJuego);
                     tablero.MostrarTablero();
                     Console.ReadKey();
                     break;
