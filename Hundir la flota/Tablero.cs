@@ -156,5 +156,28 @@ namespace Hundir_la_flota
                     break;
             }
         }
+        public int LetraANumero(char fila)
+        {
+
+            //Declaro un array que contenga todas las letras que tenga el tablero
+            char[] LetraFilas = new char[Filas];
+            char letra = 'a';
+            int i;
+            //Hago un bucle que rellene el array
+            for(i = 0; i < Filas; i++)
+            {
+                LetraFilas[i] = letra;
+                letra++;
+            }
+            //Comparo el input del usuario con el array
+            for(i = 0; i < Filas; i++)
+            {
+                if (LetraFilas[i] == fila)
+                {
+                    break;
+                }
+            }
+            return i;
+        }
     }
 }
