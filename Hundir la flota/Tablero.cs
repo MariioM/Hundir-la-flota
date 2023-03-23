@@ -75,7 +75,7 @@ namespace Hundir_la_flota
             char letraFila = 'a';
             //Hacemos que la variable "caracter" se concatene consigo misma 10 veces para centrar el texto.
             caracter = string.Concat(Enumerable.Repeat(caracter, 10));
-            Console.Write(caracter + "  ");
+            Console.Write(caracter + "   ");
             //Enumeramos las columnas del tablero
             for (int i = 1; i <= Filas; i++)
             {
