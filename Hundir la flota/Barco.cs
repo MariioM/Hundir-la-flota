@@ -35,16 +35,19 @@ namespace Hundir_la_flota
         //Métodos
         public string[,] PosicionarBarco(string[,] matriz)
         {
+            //Declaro las variables y cre un objeto tablero
             bool bucle = true;
             int opcion = 0;
-            int posicioni = 0;
+            char filaLetra;
+            int filaNumero;
             int posicionj = 0;
-
+            Tablero tablero = new Tablero();
             while (bucle == true)
             {
                 string texto1 = "Introduce la fila en la que se encuentra tu barco";
                 Program.Centrar(texto1);
-                posicioni = Convert.ToInt32(Console.ReadLine()) - 1;
+                filaLetra = Convert.ToChar(Console.ReadLine());
+                filaNumero = tablero.LetraANumero(filaLetra);
                 string texto2 = "introduce la columna en la que se encuentra ";
                 texto2 = Program.Centrar2(texto2);
                 Console.WriteLine(texto2);
@@ -65,9 +68,9 @@ namespace Hundir_la_flota
                 string error = "Tu barco se sale del tablero, decide otra vez hacia donde colocarlo";
                 error = Program.Centrar2(error);
 
-                if ((opcion == 1 && posicioni >= NumeroEspacios - 1) || opcion != 1)
+                if ((opcion == 1 && filaNumero >= NumeroEspacios - 1) || opcion != 1)
                 {
-                    if ((opcion == 2 && posicioni <= 11 - NumeroEspacios - 1) || opcion != 2)
+                    if ((opcion == 2 && filaNumero <= 11 - NumeroEspacios - 1) || opcion != 2)
                     {
                         if ((opcion == 3 && posicionj >= NumeroEspacios - 1) || opcion != 3)
                         {
@@ -91,11 +94,11 @@ namespace Hundir_la_flota
                             int libre = 1;
                             for (int i = 0; i < NumeroEspacios; i++)
                             {
-                                if (matriz[posicioni - i, posicionj] == "X")
+                                if (matriz[filaNumero - i, posicionj] == "X")
                                 {
                                     libre = 2;
                                 }
-                                else if (matriz[posicioni - i, posicionj] == Convert.ToChar(1).ToString())
+                                else if (matriz[filaNumero - i, posicionj] == Convert.ToChar(1).ToString())
                                 {
                                     libre = 2;
                                 }
@@ -105,9 +108,9 @@ namespace Hundir_la_flota
                                 for (int i = 0; i < NumeroEspacios; i++)
                                 {
 
-                                    if (matriz[posicioni - i, posicionj] == " ")
+                                    if (matriz[filaNumero - i, posicionj] == " ")
                                     {
-                                        matriz[posicioni - i, posicionj] = Convert.ToChar(1).ToString();
+                                        matriz[filaNumero - i, posicionj] = Convert.ToChar(1).ToString();
                                     }
                                 }
                             }
