@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Practica_2
+namespace Hundir_La_Flota
 {
     internal class Submarino : Barco
     {

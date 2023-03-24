@@ -1,5 +1,5 @@
 ﻿using Hundir_la_flota;
-using Practica_2;
+using Hundir_La_Flota;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Practica_2
+namespace Hundir_La_Flota
 {
     internal class Barco
     {

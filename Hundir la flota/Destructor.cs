@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Practica_2.Barco;
+using static Hundir_La_Flota.Barco;
 
-namespace Practica_2
+namespace Hundir_La_Flota
 {
     internal class Destructor : Barco
     {
