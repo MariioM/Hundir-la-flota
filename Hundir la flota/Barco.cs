@@ -1,18 +1,21 @@
-﻿using System;
+﻿using Hundir_la_flota;
+using Practica_2;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hundir_la_flota
+namespace Practica_2
 {
     internal class Barco
     {
-        //Atributos
         public int NumeroEspacios { get; set; }
-        public Espacios[] Espacios { get; set; }
+        public Espacios[] espacios { get; set; }
         public bool Hundido { get; set; }
         public TipoBarco Tipo { get; set; }
+
         public enum TipoBarco
         {
             Patrullero,
@@ -21,33 +24,47 @@ namespace Hundir_la_flota
             Portaaviones
         }
 
-        //Constructores
+        public enum Estado
+        {
+            Flotando,
+            Hundido,
+            Tocado
+        }
+
+
+
         public Barco()
         {
-            NumeroEspacios = 3;
-            Espacios = new Espacios[NumeroEspacios];
+            NumeroEspacios = 2;
+            espacios = new Espacios[NumeroEspacios];
+            for (int i = 0; i < NumeroEspacios; i++)
+            {
+
+                espacios[i] = new Espacios();
+                espacios[i].Destruido = false;
+            }
         }
-        public Barco(int numeroEspacios, Espacios[] espacios)
+        public Barco(int numeroEspacios, Espacios[] espacio)
         {
+            espacios = new Espacios[2];
             NumeroEspacios = numeroEspacios;
-            Espacios = espacios;
         }
-        //Métodos
-        public string[,] PosicionarBarco(string[,] matriz)
+
+
+        public string[,] PosicionarBarco(string[,] TableroJuego)
         {
-            //Declaro las variables y cre un objeto tablero
             bool bucle = true;
             int opcion = 0;
-            char filaLetra;
-            int filaNumero;
+            int posicioni = 0;
             int posicionj = 0;
-            Tablero tablero = new Tablero();
+
             while (bucle == true)
             {
+                string texto = "Añade tu barco " + Tipo + " que ocupa " + NumeroEspacios + " casillas";
+                Program.Centrar(texto);
                 string texto1 = "Introduce la fila en la que se encuentra tu barco";
                 Program.Centrar(texto1);
-                filaLetra = Convert.ToChar(Console.ReadLine());
-                filaNumero = tablero.LetraANumero(filaLetra);
+                posicioni = Convert.ToInt32(Console.ReadLine()) - 1;
                 string texto2 = "introduce la columna en la que se encuentra ";
                 texto2 = Program.Centrar2(texto2);
                 Console.WriteLine(texto2);
@@ -65,80 +82,220 @@ namespace Hundir_la_flota
                 menu = menu + menu2 + menu3 + menu4;
                 Console.WriteLine(menu);
                 opcion = Convert.ToInt32(Console.ReadLine());
-                string error = "Tu barco se sale del tablero, decide otra vez hacia donde colocarlo";
-                error = Program.Centrar2(error);
-
-                if ((opcion == 1 && filaNumero >= NumeroEspacios - 1) || opcion != 1)
+                bucle = ComprobarTablero(opcion, posicioni, posicionj);
+                if (bucle == true)
                 {
-                    if ((opcion == 2 && filaNumero <= 11 - NumeroEspacios - 1) || opcion != 2)
-                    {
-                        if ((opcion == 3 && posicionj >= NumeroEspacios - 1) || opcion != 3)
-                        {
-                            if ((opcion == 4 && posicionj <= 11 - NumeroEspacios - 1) || opcion != 4)
-                            {
-                                bucle = false;
-                            }
-                            else { Console.WriteLine(error); }
-                        }
-                        else { Console.WriteLine(error); }
-                    }
-                    else { Console.WriteLine(error); }
+                    string error = "Tu barco se sale del tablero, decide otra vez hacia donde colocarlo\n";
+                    error = Program.Centrar2(error);
+                    Console.WriteLine(error);
                 }
-                else { Console.WriteLine(error); }
-
-                if (bucle == false)
+                else
                 {
-                    switch (opcion)
+                    bool libre = ComprobarEspacioLibre(opcion, posicioni, posicionj, TableroJuego);
+                    if (libre == true)
                     {
-                        case 1:
-                            int libre = 1;
-                            for (int i = 0; i < NumeroEspacios; i++)
-                            {
-                                if (matriz[filaNumero - i, posicionj] == "X")
-                                {
-                                    libre = 2;
-                                }
-                                else if (matriz[filaNumero - i, posicionj] == Convert.ToChar(1).ToString())
-                                {
-                                    libre = 2;
-                                }
-                            }
-                            if (libre == 1)
-                            {
-                                for (int i = 0; i < NumeroEspacios; i++)
-                                {
-
-                                    if (matriz[filaNumero - i, posicionj] == " ")
-                                    {
-                                        matriz[filaNumero - i, posicionj] = Convert.ToChar(1).ToString();
-                                    }
-                                }
-                            }
-                            else if (libre == 2)
-                            {
-                                {
-                                    string texto = "Hay un obstáculo para colocar tu barco\n";
-                                    texto = Program.Centrar2(texto);
-                                    Console.WriteLine(texto);
-                                    texto = "Introduce de nuevo las coordenadas y asegurate de no pasar por una tierra o un barco";
-                                    texto = Program.Centrar2(texto);
-                                    Console.WriteLine(texto);
-                                    bucle = true;
-                                    Console.ReadKey();
-                                }
-                            }
-                            break;
+                        DibujarBarco(opcion, TableroJuego, posicioni, posicionj);
+                    }
+                    else
+                    {
+                        Error();
+                        bucle = true;
                     }
                 }
             }
-            return matriz;
+            return TableroJuego;
         }
-        public void Hundir()
+
+        public bool ComprobarTablero(int opcion, int posicioni, int posicionj)
+        {
+            bool bucle;
+            if ((opcion == 1 && posicioni >= NumeroEspacios - 1) || opcion != 1)
+            {
+                if ((opcion == 2 && posicioni <= 11 - NumeroEspacios - 1) || opcion != 2)
+                {
+                    if ((opcion == 3 && posicionj >= NumeroEspacios - 1) || opcion != 3)
+                    {
+                        if ((opcion == 4 && posicionj <= 11 - NumeroEspacios - 1) || opcion != 4)
+                        {
+                            bucle = false;
+                        }
+                        else { bucle = true; }
+                    }
+                    else { bucle = true; }
+                }
+                else { bucle = true; }
+            }
+            else { bucle = true; }
+            return bucle;
+        }
+
+
+        public bool ComprobarEspacioLibre(int opcion, int posicioni, int posicionj, string[,] TableroJuego)
+        {
+            bool libre = true;
+            switch (opcion)
+            {
+                case 1:
+                    for (int i = 0; i < NumeroEspacios; i++)
+                    {
+                        if (TableroJuego[posicioni - i, posicionj] == "X")
+                        {
+                            libre = false;
+                        }
+                        else if (TableroJuego[posicioni - i, posicionj] == Convert.ToChar(1).ToString())
+                        {
+                            libre = false;
+                        }
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < NumeroEspacios; i++)
+                    {
+                        if (TableroJuego[posicioni + i, posicionj] == "X")
+                        {
+                            libre = false;
+                        }
+                        else if (TableroJuego[posicioni + i, posicionj] == Convert.ToChar(1).ToString())
+                        {
+                            libre = false;
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < NumeroEspacios; i++)
+                    {
+                        if (TableroJuego[posicioni, posicionj - i] == "X")
+                        {
+                            libre = false;
+                        }
+                        else if (TableroJuego[posicioni, posicionj - i] == Convert.ToChar(1).ToString())
+                        {
+                            libre = false;
+                        }
+                    }
+                    break;
+                case 4:
+                    for (int i = 0; i < NumeroEspacios; i++)
+                    {
+                        if (TableroJuego[posicioni, posicionj + i] == "X")
+                        {
+                            libre = false;
+                        }
+                        else if (TableroJuego[posicioni, posicionj + i] == Convert.ToChar(1).ToString())
+                        {
+                            libre = false;
+                        }
+                    }
+                    break;
+            }
+            return libre;
+        }
+
+        public string[,] DibujarBarco(int opcion, string[,] TableroJuego, int posicioni, int posicionj)
+        {
+            switch (opcion)
+            {
+                case 1:
+                    for (int i = 0; i < NumeroEspacios; i++)
+                    {
+
+                        TableroJuego[posicioni - i, posicionj] = Convert.ToChar(1).ToString();
+                        espacios[i].Fila = posicioni - i;
+                        espacios[i].Columna = posicionj;
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < NumeroEspacios; i++)
+                    {
+
+                        TableroJuego[posicioni + i, posicionj] = Convert.ToChar(1).ToString();
+                        espacios[i].Fila = posicioni + i;
+                        espacios[i].Columna = posicionj;
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < NumeroEspacios; i++)
+                    {
+
+                        TableroJuego[posicioni, posicionj - i] = Convert.ToChar(1).ToString();
+                        espacios[i].Fila = posicioni;
+                        espacios[i].Columna = posicionj - i;
+                    }
+                    break;
+                case 4:
+                    for (int i = 0; i < NumeroEspacios; i++)
+                    {
+                        TableroJuego[posicioni, posicionj + i] = Convert.ToChar(1).ToString();
+                        espacios[i].Fila = posicioni;
+                        espacios[i].Columna = posicionj + i;
+                    }
+                    break;
+            }
+            return TableroJuego;
+        }
+
+        public void Error()
+        {
+            string texto = "Hay un obstáculo para colocar tu barco\n";
+            texto = Program.Centrar2(texto);
+            Console.WriteLine(texto);
+            texto = "Introduce de nuevo las coordenadas y asegurate de no pasar por una tierra o un barco";
+            texto = Program.Centrar2(texto);
+            Console.WriteLine(texto);
+            Console.ReadKey();
+        }
+
+        public string[,] Hundir(string[,] TableroJuego, int disparoi, int disparoj)
+        {
+            if (Hundido == false)
+            {
+                Hundido = true;
+                for (int i = 0; i < NumeroEspacios; i++)
+                {
+                    if (espacios[i].Fila == disparoi && espacios[i].Columna == disparoj)
+                    {
+                        espacios[i].Destruido = true;
+                        TableroJuego = BarcoTocado(TableroJuego, disparoi, disparoj);
+                    }
+
+                    if (espacios[i].Destruido == false)
+                    {
+                        Hundido = false;
+                    }
+                }
+                if (Hundido == true)
+                {
+                    Console.WriteLine("Hundido");
+                    TableroJuego = EliminarBarco(TableroJuego);
+                }
+
+            }
+            return TableroJuego;
+        }
+
+        public string[,] BarcoTocado(string[,] TableroJuego, int disparoi, int disparoj)
+        {
+            TableroJuego[disparoi, disparoj] = Convert.ToChar(2).ToString();
+            return TableroJuego;
+        }
+        public string[,] EliminarBarco(string[,] TableroJuego)
         {
             for (int i = 0; i < NumeroEspacios; i++)
             {
-
+                TableroJuego[espacios[i].Fila, espacios[i].Columna] = Convert.ToChar(237).ToString();
             }
+            return TableroJuego;
+        }
+
+        public string[,] Disparo(string[,] TableroJuego)
+        {
+            //Pedimos valores (x,y) del disparo.
+            Console.WriteLine("Introduzca la coordenada x de tu disparo: ");
+            int Coordx = Convert.ToInt16(Console.ReadLine()) - 1;
+            Console.WriteLine("Introduzca la coordenada y de tu disparo: ");
+            int Coordy = Convert.ToInt16(Console.ReadLine()) - 1;
+            TableroJuego = Hundir(TableroJuego, Coordx, Coordy);
+            return TableroJuego;
         }
     }
 }
