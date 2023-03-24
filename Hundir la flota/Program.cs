@@ -1,11 +1,13 @@
-﻿using Hundir_La_Flota;
+﻿using Hundir_la_flota;
+using Hundir_La_Flota;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hundir_la_flota
+namespace Hundir_La_Flota
 {
     internal class Program
     {
@@ -32,19 +34,19 @@ namespace Hundir_la_flota
             Console.WriteLine(texto1);
             int comando = Convert.ToInt32(Console.ReadLine());
             Tablero tablero = new Tablero();
+            Barco barco = new Barco();
+            Jugador jugador = new Jugador();
             switch (comando)
             {
                 case 1:
-                    tablero.Crear();
-                    Barco barco = new Barco();
-                    tablero.TableroJuego = barco.PosicionarBarco(tablero.TableroJuego);
-                    tablero.MostrarTablero();
-                    Console.ReadKey();
+                    Juego partida = new Juego();
+                    partida.Partida1vs1();
                     break;
             }
 
-
         }
+
+
         //Esta función es de pura estetica centrará el texto introducido dará un especio e imprimirá una línea de '*'.
         public static void Centrar(string texto)
         {

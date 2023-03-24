@@ -53,6 +53,7 @@ namespace Hundir_la_flota
             {
                 tablero.TableroJuego = barco.PosicionarBarco(tablero.TableroJuego);
                 tablero.Mostrar();
+
             }
             return tablero.TableroJuego;
         }
