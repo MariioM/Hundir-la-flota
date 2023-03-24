@@ -55,16 +55,18 @@ namespace Hundir_La_Flota
         {
             bool bucle = true;
             int opcion = 0;
-            int posicioni = 0;
+            char FilaLetra;
+            int FilaNumero;
             int posicionj = 0;
-
+            Tablero tablero = new Tablero();
             while (bucle == true)
             {
                 string texto = "Añade tu barco " + Tipo + " que ocupa " + NumeroEspacios + " casillas";
                 Program.Centrar(texto);
                 string texto1 = "Introduce la fila en la que se encuentra tu barco";
                 Program.Centrar(texto1);
-                posicioni = Convert.ToInt32(Console.ReadLine()) - 1;
+                FilaLetra = Convert.ToChar(Console.ReadLine());
+                FilaNumero = tablero.LetraANumero(FilaLetra);
                 string texto2 = "introduce la columna en la que se encuentra ";
                 texto2 = Program.Centrar2(texto2);
                 Console.WriteLine(texto2);
@@ -82,7 +84,7 @@ namespace Hundir_La_Flota
                 menu = menu + menu2 + menu3 + menu4;
                 Console.WriteLine(menu);
                 opcion = Convert.ToInt32(Console.ReadLine());
-                bucle = ComprobarTablero(opcion, posicioni, posicionj);
+                bucle = ComprobarTablero(opcion, FilaNumero, posicionj);
                 if (bucle == true)
                 {
                     string error = "Tu barco se sale del tablero, decide otra vez hacia donde colocarlo\n";
@@ -91,10 +93,10 @@ namespace Hundir_La_Flota
                 }
                 else
                 {
-                    bool libre = ComprobarEspacioLibre(opcion, posicioni, posicionj, TableroJuego);
+                    bool libre = ComprobarEspacioLibre(opcion, FilaNumero, posicionj, TableroJuego);
                     if (libre == true)
                     {
-                        DibujarBarco(opcion, TableroJuego, posicioni, posicionj);
+                        DibujarBarco(opcion, TableroJuego, FilaNumero, posicionj);
                     }
                     else
                     {
@@ -106,12 +108,12 @@ namespace Hundir_La_Flota
             return TableroJuego;
         }
 
-        public bool ComprobarTablero(int opcion, int posicioni, int posicionj)
+        public bool ComprobarTablero(int opcion, int FilaNumero, int posicionj)
         {
             bool bucle;
-            if ((opcion == 1 && posicioni >= NumeroEspacios - 1) || opcion != 1)
+            if ((opcion == 1 && FilaNumero >= NumeroEspacios - 1) || opcion != 1)
             {
-                if ((opcion == 2 && posicioni <= 11 - NumeroEspacios - 1) || opcion != 2)
+                if ((opcion == 2 && FilaNumero <= 11 - NumeroEspacios - 1) || opcion != 2)
                 {
                     if ((opcion == 3 && posicionj >= NumeroEspacios - 1) || opcion != 3)
                     {
@@ -130,7 +132,7 @@ namespace Hundir_La_Flota
         }
 
 
-        public bool ComprobarEspacioLibre(int opcion, int posicioni, int posicionj, string[,] TableroJuego)
+        public bool ComprobarEspacioLibre(int opcion, int FilaNumero, int posicionj, string[,] TableroJuego)
         {
             bool libre = true;
             switch (opcion)
@@ -138,11 +140,11 @@ namespace Hundir_La_Flota
                 case 1:
                     for (int i = 0; i < NumeroEspacios; i++)
                     {
-                        if (TableroJuego[posicioni - i, posicionj] == "X")
+                        if (TableroJuego[FilaNumero - i, posicionj] == "X")
                         {
                             libre = false;
                         }
-                        else if (TableroJuego[posicioni - i, posicionj] == Convert.ToChar(1).ToString())
+                        else if (TableroJuego[FilaNumero - i, posicionj] == Convert.ToChar(1).ToString())
                         {
                             libre = false;
                         }
@@ -151,11 +153,11 @@ namespace Hundir_La_Flota
                 case 2:
                     for (int i = 0; i < NumeroEspacios; i++)
                     {
-                        if (TableroJuego[posicioni + i, posicionj] == "X")
+                        if (TableroJuego[FilaNumero + i, posicionj] == "X")
                         {
                             libre = false;
                         }
-                        else if (TableroJuego[posicioni + i, posicionj] == Convert.ToChar(1).ToString())
+                        else if (TableroJuego[FilaNumero + i, posicionj] == Convert.ToChar(1).ToString())
                         {
                             libre = false;
                         }
@@ -164,11 +166,11 @@ namespace Hundir_La_Flota
                 case 3:
                     for (int i = 0; i < NumeroEspacios; i++)
                     {
-                        if (TableroJuego[posicioni, posicionj - i] == "X")
+                        if (TableroJuego[FilaNumero, posicionj - i] == "X")
                         {
                             libre = false;
                         }
-                        else if (TableroJuego[posicioni, posicionj - i] == Convert.ToChar(1).ToString())
+                        else if (TableroJuego[FilaNumero, posicionj - i] == Convert.ToChar(1).ToString())
                         {
                             libre = false;
                         }
@@ -177,11 +179,11 @@ namespace Hundir_La_Flota
                 case 4:
                     for (int i = 0; i < NumeroEspacios; i++)
                     {
-                        if (TableroJuego[posicioni, posicionj + i] == "X")
+                        if (TableroJuego[FilaNumero, posicionj + i] == "X")
                         {
                             libre = false;
                         }
-                        else if (TableroJuego[posicioni, posicionj + i] == Convert.ToChar(1).ToString())
+                        else if (TableroJuego[FilaNumero, posicionj + i] == Convert.ToChar(1).ToString())
                         {
                             libre = false;
                         }
@@ -191,7 +193,7 @@ namespace Hundir_La_Flota
             return libre;
         }
 
-        public string[,] DibujarBarco(int opcion, string[,] TableroJuego, int posicioni, int posicionj)
+        public string[,] DibujarBarco(int opcion, string[,] TableroJuego, int FilaNumero, int posicionj)
         {
             switch (opcion)
             {
@@ -199,8 +201,8 @@ namespace Hundir_La_Flota
                     for (int i = 0; i < NumeroEspacios; i++)
                     {
 
-                        TableroJuego[posicioni - i, posicionj] = Convert.ToChar(1).ToString();
-                        espacios[i].Fila = posicioni - i;
+                        TableroJuego[FilaNumero - i, posicionj] = Convert.ToChar(1).ToString();
+                        espacios[i].Fila = FilaNumero - i;
                         espacios[i].Columna = posicionj;
                     }
                     break;
@@ -208,8 +210,8 @@ namespace Hundir_La_Flota
                     for (int i = 0; i < NumeroEspacios; i++)
                     {
 
-                        TableroJuego[posicioni + i, posicionj] = Convert.ToChar(1).ToString();
-                        espacios[i].Fila = posicioni + i;
+                        TableroJuego[FilaNumero + i, posicionj] = Convert.ToChar(1).ToString();
+                        espacios[i].Fila = FilaNumero + i;
                         espacios[i].Columna = posicionj;
                     }
                     break;
@@ -217,16 +219,16 @@ namespace Hundir_La_Flota
                     for (int i = 0; i < NumeroEspacios; i++)
                     {
 
-                        TableroJuego[posicioni, posicionj - i] = Convert.ToChar(1).ToString();
-                        espacios[i].Fila = posicioni;
+                        TableroJuego[FilaNumero, posicionj - i] = Convert.ToChar(1).ToString();
+                        espacios[i].Fila = FilaNumero;
                         espacios[i].Columna = posicionj - i;
                     }
                     break;
                 case 4:
                     for (int i = 0; i < NumeroEspacios; i++)
                     {
-                        TableroJuego[posicioni, posicionj + i] = Convert.ToChar(1).ToString();
-                        espacios[i].Fila = posicioni;
+                        TableroJuego[FilaNumero, posicionj + i] = Convert.ToChar(1).ToString();
+                        espacios[i].Fila = FilaNumero;
                         espacios[i].Columna = posicionj + i;
                     }
                     break;
