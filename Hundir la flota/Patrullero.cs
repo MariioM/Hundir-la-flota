@@ -4,9 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hundir_la_flota
+namespace Practica_2
 {
-    internal class Patrullero
+    internal class Patrullero : Barco
     {
+        public Patrullero()
+        {
+            NumeroEspacios = 2;
+            espacios = new Espacios[NumeroEspacios];
+            Tipo = TipoBarco.Patrullero;
+            espacios = new Espacios[NumeroEspacios];
+            for (int i = 0; i < NumeroEspacios; i++)
+            {
+
+                espacios[i] = new Espacios();
+            }
+        }
+
+        public Patrullero(int numeroEspacios, Espacios[] espacios) : base(numeroEspacios, espacios)
+        {
+            Tipo = TipoBarco.Patrullero;
+        }
+
+
     }
 }
