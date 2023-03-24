@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hundir_la_flota
 {
-    abstract class Barco
+    internal class Barco
     {
         //Atributos
         public int NumeroEspacios { get; set; }
