@@ -61,14 +61,16 @@ namespace Hundir_la_flota
 
         public string[,] Disparo(string[,] TableroJuego, Jugador jugador)
         {
+            Tablero tablero = new Tablero();
             //Pedimos valores (x,y) del disparo.
             Console.WriteLine(jugador.Name + "Introduzca la coordenada x de tu disparo: ");
-            int Coordx = Convert.ToInt16(Console.ReadLine()) - 1;
+            char CoordLetra = Convert.ToChar(Console.ReadLine());
+            int CoordNumero = tablero.LetraANumero(CoordLetra);
             Console.WriteLine(jugador.Name + "Introduzca la coordenada y de tu disparo: ");
             int Coordy = Convert.ToInt16(Console.ReadLine()) - 1;
             foreach (Barco barco in ListaBarcos)
             {
-                TableroJuego = barco.Hundir(TableroJuego, Coordx, Coordy);
+                TableroJuego = barco.Hundir(TableroJuego, CoordNumero, Coordy);
             }
             return TableroJuego;
         }
