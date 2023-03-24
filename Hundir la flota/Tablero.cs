@@ -42,7 +42,8 @@ namespace Hundir_la_flota
             {
                 for (int j = 0; j < Columnas; j++)
                 {
-                    TableroJuego[i, j] = " ";
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    TableroJuego[i, j] = "          ";
                 }
             }
             SetTierras();
@@ -100,9 +101,9 @@ namespace Hundir_la_flota
                 for (int j = 0; j < Columnas; j++)
                 {
                     
-                    Console.Write("| {0} ", TableroJuego[i, j]);
+                    Console.Write(" ", TableroJuego[i, j]);
                 }
-                Console.WriteLine("|\n");
+                Console.WriteLine(" ");
             }
         }
         public void MostrarTableroEnemigo()
