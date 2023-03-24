@@ -33,7 +33,7 @@ namespace Hundir_la_flota
                 texto = Program.Centrar2("Jugador " + (i + 1) + " introduce tu nombre");
                 Console.WriteLine(texto);
                 Jugadores[i].Name = Console.ReadLine();
-                Tableros[i].Mostrar();
+                Tableros[i].MostrarTablero();
                 Tableros[i].TableroJuego = Jugadores[i].ColocarBarcos(Tableros[i]);
             }
 

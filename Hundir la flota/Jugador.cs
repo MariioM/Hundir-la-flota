@@ -53,7 +53,7 @@ namespace Hundir_la_flota
             foreach (Barco barco in ListaBarcos)
             {
                 tablero.TableroJuego = barco.PosicionarBarco(tablero.TableroJuego);
-                tablero.Mostrar();
+                tablero.MostrarTablero();
 
             }
             return tablero.TableroJuego;
