@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Practica_2
+namespace Hundir_la_flota
 {
     internal class Jugador
     {

@@ -105,6 +105,51 @@ namespace Hundir_la_flota
                 Console.WriteLine("|\n");
             }
         }
+        public void MostrarTableroEnemigo()
+        {
+            string caracter = " ";
+            char letraFila = 'a';
+            //Hacemos que la variable "caracter" se concatene consigo misma 10 veces para centrar el texto.
+            caracter = string.Concat(Enumerable.Repeat(caracter, 10));
+            Console.Write(caracter + "   ");
+            //Enumeramos las columnas del tablero
+            for (int i = 1; i <= Filas; i++)
+            {
+                if (i <= 10)
+                {
+                    Console.Write("  {0} ", i);
+                }
+                else
+                {
+                    Console.Write(" {0} ", i);
+
+                }
+            }
+            Console.WriteLine("\n");
+            //Creamos el tablero con dos bucles anidados
+            for (int i = 0; i < Filas; i++)
+            {
+                //Enumeramos las columnas con letras
+                Console.Write(caracter);
+                Console.Write("{0}  ", letraFila);
+                letraFila++;
+                for (int j = 0; j < Columnas; j++)
+                {
+
+                    if (TableroJuego[i, j] == Convert.ToChar(1).ToString() || TableroJuego[i,j] == "~" || TableroJuego[i,j] == "X")
+                    {
+                        Console.Write("| {0} ", TableroJuego[i, j]);
+
+                    }
+                    else
+                    {
+                        Console.Write("|   ");
+                    }
+                }
+                Console.WriteLine("|\n");
+            }
+        }
+    
 
         public int LetraANumero(char fila)
         {
