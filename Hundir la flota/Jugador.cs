@@ -8,5 +8,6 @@ namespace Hundir_la_flota
 {
     internal class Jugador
     {
+
     }
 }
